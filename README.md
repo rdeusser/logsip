@@ -20,9 +20,9 @@ func main() {
     log.Panic("You REALLY done did something wrong")
     
     lulz := "lulz"
-    log.Infof("Just some %s for ya, lulz)
+    log.Infof("Just some %s for ya", lulz)
     log.Warnf("You might need to know this %s", lulz)
-    log.Fatalf("You done did the %s", lulz")
+    log.Fatalf("You done did the %s", lulz)
     log.Panicf("You REALLY done did the %s", lulz)
 }
 ```
