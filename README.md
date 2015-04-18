@@ -8,10 +8,12 @@ First, read the source code. It's REALLY simple. Here's how you use it though:
 package main
 
 import (
+    "os"
+
     "github.com/iamthemuffinman/go-logger" // exported as logger
 )
 
-var log = logger.New()
+var log = logger.New(os.Stdout)
 
 func main() {
     log.Info("Just some info for ya")
