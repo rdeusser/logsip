@@ -4,16 +4,19 @@
 package logger
 
 import (
+	"io"
 	"log"
 	"os"
 
 	"github.com/fatih/color"
 )
 
-type Logger struct{}
+type Logger struct {
+	out io.Writer
+}
 
-func New() *Logger {
-	return &Logger{}
+func New(out io.Writer) *Logger {
+	return &Logger{out: out}
 }
 
 var cyan = color.New(color.FgCyan).SprintFunc()
