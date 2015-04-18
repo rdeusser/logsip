@@ -8,10 +8,12 @@ First, read the source code. It's REALLY simple. Here's how you use it though:
 package main
 
 import (
+    "os"
+
     "github.com/iamthemuffinman/go-logger" // exported as logger
 )
 
-var log = logger.New()
+var log = logger.New(os.Stdout)
 
 func main() {
     log.Info("Just some info for ya")
@@ -28,4 +30,4 @@ func main() {
 ```
 
 # Credits
-Thanks to Go for being awesome and thanks to fatih for his/her color library which you can find [here](https://github.com/fatih/color)!
+Thanks to Go for being awesome and thanks to fatih for his color library which you can find [here](https://github.com/fatih/color)!
