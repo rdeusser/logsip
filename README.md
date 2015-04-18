@@ -28,4 +28,4 @@ func main() {
 ```
 
 # Credits
-Thanks to Go for being awesome and thanks to fatih for his/her color library which you can find [here](https://github.com/fatih/color)!
+Thanks to Go for being awesome and thanks to fatih for his color library which you can find [here](https://github.com/fatih/color)!
