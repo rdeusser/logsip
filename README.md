@@ -11,10 +11,19 @@ import (
     "github.com/iamthemuffinman/go-logger" // exported as logger
 )
 
+var log = logger.New()
+
 func main() {
-    logger.Info("Just some info for ya")
-    logger.Warn("Some info you might need to know")
-    logger.Fatal("You done did something wrong") // Note: Don't use this with Panic unless separated by some logic
+    log.Info("Just some info for ya")
+    log.Warn("Some info you might need to know")
+    log.Fatal("You done did something wrong")
+    log.Panic("You REALLY done did something wrong")
+    
+    lulz := "lulz"
+    log.Infof("Just some %s for ya", lulz)
+    log.Warnf("You might need to know this %s", lulz)
+    log.Fatalf("You done did the %s", lulz)
+    log.Panicf("You REALLY done did the %s", lulz)
 }
 ```
 
