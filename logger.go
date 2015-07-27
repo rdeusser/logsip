@@ -35,13 +35,13 @@ func (l *Logger) Warn(v ...interface{}) {
 }
 func (l *Logger) Fatal(v ...interface{}) {
 	prefix := red("==> Fatal: ")
-	logger := log.New(l.out, prefix+" -- ", 0)
+	logger := log.New(l.out, prefix, 0)
 	logger.Println(v...)
 	os.Exit(1)
 }
 func (l *Logger) Panic(v ...interface{}) {
 	prefix := red("==> Panic: ")
-	logger := log.New(l.out, prefix+" -- ", log.Llongfile)
+	logger := log.New(l.out, prefix+"-- ", log.Llongfile)
 	logger.Println(v...)
 	panic(logger)
 }
@@ -58,13 +58,13 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 }
 func (l *Logger) Fatalf(format string, v ...interface{}) {
 	prefix := red("==> Fatal: ")
-	logger := log.New(l.out, prefix+" -- ", 0)
+	logger := log.New(l.out, prefix, 0)
 	logger.Printf(format, v...)
 	os.Exit(1)
 }
 func (l *Logger) Panicf(format string, v ...interface{}) {
 	prefix := red("==> Panic: ")
-	logger := log.New(l.out, prefix+" -- ", log.Llongfile)
+	logger := log.New(l.out, prefix+"-- ", log.Llongfile)
 	logger.Printf(format, v...)
 	panic(logger)
 }
