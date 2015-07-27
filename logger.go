@@ -35,7 +35,7 @@ func (l *Logger) Warn(v ...interface{}) {
 }
 func (l *Logger) Fatal(v ...interface{}) {
 	prefix := red("==> Fatal: ")
-	logger := log.New(l.out, prefix+" -- ", log.Llongfile)
+	logger := log.New(l.out, prefix+" -- ", 0)
 	logger.Println(v...)
 	os.Exit(1)
 }
@@ -58,7 +58,7 @@ func (l *Logger) Warnf(format string, v ...interface{}) {
 }
 func (l *Logger) Fatalf(format string, v ...interface{}) {
 	prefix := red("==> Fatal: ")
-	logger := log.New(l.out, prefix+" -- ", log.Llongfile)
+	logger := log.New(l.out, prefix+" -- ", 0)
 	logger.Printf(format, v...)
 	os.Exit(1)
 }
