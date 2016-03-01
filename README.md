@@ -1,4 +1,4 @@
-# go-logger
+# Logsip
 A simple, concise, colorful logger for Go.
 
 # How to use
@@ -10,10 +10,10 @@ package main
 import (
     "os"
 
-    "github.com/iamthemuffinman/go-logger" // exported as logger
+    "github.com/iamthemuffinman/logsip"
 )
 
-var log = logger.New(os.Stdout)
+var log = logsip.New(os.Stdout)
 
 func main() {
     log.Info("Just some info for ya")
@@ -22,6 +22,7 @@ func main() {
     log.Panic("You REALLY done did something wrong")
     
     lulz := "lulz"
+
     log.Infof("Just some %s for ya", lulz)
     log.Warnf("You might need to know this %s", lulz)
     log.Fatalf("You done did the %s", lulz)

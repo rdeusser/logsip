@@ -1,7 +1,7 @@
 // All this package really does is add a little structure and a little color
 // to the standard log package
 
-package logger
+package logsip
 
 import (
 	"io"
