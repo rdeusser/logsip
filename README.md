@@ -2,7 +2,11 @@
 A simple, concise, colorful logger for Go.
 
 # How to use
-First, read the source code. It's REALLY simple. Here's how you use it though:
+First, read the source code. It's REALLY simple. Here's a screenshot:
+
+![Just a screenshot here, nothin' to see](/screenshot.png?raw=true)
+
+And here's how you use it:
 
 ```go
 package main
