@@ -39,7 +39,9 @@ func main() {
 }
 ```
 
-Logsip also provides a Default option if you just want to use os.Stdout anyway:
+New() will write to anything that satisfies the io.Writer method so get creative!
+
+Logsip also provides a Default option if you just want to use os.Stdout:
 
 ```go
 package main
