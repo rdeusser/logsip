@@ -13,7 +13,6 @@ import (
 )
 
 type Logger struct {
-	out         io.Writer
 	WarnPrefix  string
 	FatalPrefix string
 	InfoPrefix  string
@@ -22,16 +21,16 @@ type Logger struct {
 }
 
 func New(out io.Writer) *Logger {
-	return &Logger{out: out}
+	return &Logger{Logger: log.New(out, "", 0)}
 }
 
 func Default() *Logger {
 	return &Logger{
-		out:         os.Stdout,
 		WarnPrefix:  color.New(color.FgYellow).SprintFunc()("==> Warn: "),
 		InfoPrefix:  color.New(color.FgCyan).SprintFunc()("==> Info: "),
 		FatalPrefix: color.New(color.FgRed).SprintFunc()("==> Fatal: "),
 		PanicPrefix: color.New(color.FgRed).SprintFunc()("==> Panic: "),
+		Logger:      log.New(os.Stdout, "", 0),
 	}
 }
 
