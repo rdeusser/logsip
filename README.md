@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-Logsip also provides a default option if you just want to use os.Stdout anyway:
+Logsip also provides a Default option if you just want to use os.Stdout anyway:
 
 ```go
 package main
@@ -52,6 +52,7 @@ var log = logsip.Default()
 
 func main() {
     log.Info("Just some info for ya")
+}
 ```
 Contributions welcome!
 
