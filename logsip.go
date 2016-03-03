@@ -4,6 +4,7 @@
 package logsip
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -12,85 +13,74 @@ import (
 )
 
 type Logger struct {
-	Out io.Writer
+	out         io.Writer
+	WarnPrefix  string
+	FatalPrefix string
+	InfoPrefix  string
+	PanicPrefix string
+	*log.Logger
 }
 
-func New(Out io.Writer) *Logger {
-	return &Logger{Out: Out}
+func New(out io.Writer) *Logger {
+	return &Logger{out: out}
 }
 
-var cyan = color.New(color.FgCyan).SprintFunc()
-var yellow = color.New(color.FgYellow).SprintFunc()
-var red = color.New(color.FgRed).SprintFunc()
+func Default(out io.Writer) *Logger {
+	return &Logger{
+		out:         out,
+		WarnPrefix:  color.New(color.FgYellow).SprintFunc()("==> Warn: "),
+		InfoPrefix:  color.New(color.FgCyan).SprintFunc()("==> Info: "),
+		FatalPrefix: color.New(color.FgRed).SprintFunc()("==> Fatal: "),
+		PanicPrefix: color.New(color.FgRed).SprintFunc()("==> Panic: "),
+	}
+}
 
 func (l *Logger) Info(v ...interface{}) {
-	prefix := cyan("==> Info: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Print(v...)
+	l.Print(l.InfoPrefix + fmt.Sprint(v...))
 }
 func (l *Logger) Warn(v ...interface{}) {
-	prefix := yellow("==> Warn: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Print(v...)
+	l.Print(l.WarnPrefix + fmt.Sprint(v...))
 }
 func (l *Logger) Fatal(v ...interface{}) {
-	prefix := red("==> Fatal: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Print(v...)
+	l.Print(l.FatalPrefix + fmt.Sprint(v...))
 	os.Exit(1)
 }
+
 func (l *Logger) Panic(v ...interface{}) {
-	prefix := red("==> Panic: ")
-	logger := log.New(l.Out, prefix+"-- ", log.Llongfile)
-	logger.Print(v...)
-	panic(logger)
+	l.Print(l.PanicPrefix + fmt.Sprint(v...))
+	panic(l)
 }
 
 func (l *Logger) Infof(format string, v ...interface{}) {
-	prefix := cyan("==> Info: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Printf(format, v...)
+	l.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
 }
+
 func (l *Logger) Warnf(format string, v ...interface{}) {
-	prefix := yellow("==> Warn: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Printf(format, v...)
+	l.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
 }
 func (l *Logger) Fatalf(format string, v ...interface{}) {
-	prefix := red("==> Fatal: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Printf(format, v...)
+	l.Print(l.FatalPrefix + fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 func (l *Logger) Panicf(format string, v ...interface{}) {
-	prefix := red("==> Panic: ")
-	logger := log.New(l.Out, prefix+"-- ", log.Llongfile)
-	logger.Printf(format, v...)
-	panic(logger)
+	l.Print(l.PanicPrefix + fmt.Sprintf(format, v...))
+	panic(l)
 }
 
 func (l *Logger) Infoln(v ...interface{}) {
-	prefix := cyan("==> Info: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Println(v...)
+	l.Println(l.InfoPrefix + fmt.Sprint(v...))
 }
 
 func (l *Logger) Warnln(v ...interface{}) {
-	prefix := yellow("==> Warn: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Println(v...)
+	l.Println(l.WarnPrefix + fmt.Sprint(v...))
 }
 
 func (l *Logger) Fatalln(v ...interface{}) {
-	prefix := red("==> Fatal: ")
-	logger := log.New(l.Out, prefix, 0)
-	logger.Println(v...)
+	l.Println(l.FatalPrefix + fmt.Sprint(v...))
 	os.Exit(1)
 }
 
 func (l *Logger) Panicln(v ...interface{}) {
-	prefix := red("==> Panic: ")
-	logger := log.New(l.Out, prefix+"-- ", log.Llongfile)
-	logger.Println(v...)
-	panic(logger)
+	l.Println(l.PanicPrefix + fmt.Sprint(v...))
+	panic(l)
 }
