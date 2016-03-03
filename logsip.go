@@ -25,9 +25,9 @@ func New(out io.Writer) *Logger {
 	return &Logger{out: out}
 }
 
-func Default(out io.Writer) *Logger {
+func Default() *Logger {
 	return &Logger{
-		out:         out,
+		out:         os.Stdout,
 		WarnPrefix:  color.New(color.FgYellow).SprintFunc()("==> Warn: "),
 		InfoPrefix:  color.New(color.FgCyan).SprintFunc()("==> Info: "),
 		FatalPrefix: color.New(color.FgRed).SprintFunc()("==> Fatal: "),
