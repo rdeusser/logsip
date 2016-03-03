@@ -1,7 +1,7 @@
 # Logsip
 A simple, concise, colorful logger for Go.
 
-# How to use
+### How to use
 First, read the source code. It's REALLY simple. Here's a screenshot:
 
 ![Just a screenshot here, nothin' to see](/screenshot.png?raw=true)
@@ -58,5 +58,5 @@ func main() {
 ```
 Contributions welcome!
 
-# Credits
+### Credits
 Thanks to Go for being awesome and thanks to fatih for his color library which you can find [here](https://github.com/fatih/color)!
