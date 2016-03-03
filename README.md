@@ -31,6 +31,11 @@ func main() {
     log.Warnf("You might need to know this %s", lulz)
     log.Fatalf("You done did the %s", lulz)
     log.Panicf("You REALLY done did the %s", lulz)
+    
+    log.Infoln("Just some info for ya")
+    log.Warnln("Some info you might need to know")
+    log.Fatalln("You done did something wrong")
+    log.Panicln("You REALLY done did something wrong")
 }
 ```
 
