@@ -44,16 +44,13 @@ func (l *Logger) Fatal(v ...interface{}) {
 	l.Print(l.FatalPrefix + fmt.Sprint(v...))
 	os.Exit(1)
 }
-
 func (l *Logger) Panic(v ...interface{}) {
 	l.Print(l.PanicPrefix + fmt.Sprint(v...))
 	panic(l)
 }
-
 func (l *Logger) Infof(format string, v ...interface{}) {
 	l.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
 }
-
 func (l *Logger) Warnf(format string, v ...interface{}) {
 	l.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
 }
@@ -65,20 +62,16 @@ func (l *Logger) Panicf(format string, v ...interface{}) {
 	l.Print(l.PanicPrefix + fmt.Sprintf(format, v...))
 	panic(l)
 }
-
 func (l *Logger) Infoln(v ...interface{}) {
 	l.Println(l.InfoPrefix + fmt.Sprint(v...))
 }
-
 func (l *Logger) Warnln(v ...interface{}) {
 	l.Println(l.WarnPrefix + fmt.Sprint(v...))
 }
-
 func (l *Logger) Fatalln(v ...interface{}) {
 	l.Println(l.FatalPrefix + fmt.Sprint(v...))
 	os.Exit(1)
 }
-
 func (l *Logger) Panicln(v ...interface{}) {
 	l.Println(l.PanicPrefix + fmt.Sprint(v...))
 	panic(l)
