@@ -1,9 +1,13 @@
 TEST?=$(shell go list ./... | grep -v vendor)
 
-all: fmt test
+all: fmt deps test
 
 fmt:
 	go fmt `go list ./... | grep -v vendor`
+
+deps:
+	@godep restore
+	@godep save
 
 test:
 	@go test
@@ -12,4 +16,4 @@ test:
 		exit 1; \
 	fi
 
-.PHONY: all fmt test
+.PHONY: all fmt deps test
