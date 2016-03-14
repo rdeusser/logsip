@@ -18,6 +18,8 @@ type Logger struct {
 	FatalPrefix string
 	InfoPrefix  string
 	PanicPrefix string
+	DebugPrefix string
+	DebugMode   bool
 	*log.Logger
 }
 
@@ -33,6 +35,7 @@ func Default() *Logger {
 		InfoPrefix:  color.New(color.FgCyan).SprintFunc()("==> Info: "),
 		FatalPrefix: color.New(color.FgRed).SprintFunc()("==> Fatal: "),
 		PanicPrefix: color.New(color.FgRed).SprintFunc()("==> Panic: "),
+		DebugPrefix: color.New(color.FgMagenta).SprintFunc()("==> Debug: "),
 		Logger:      log.New(os.Stdout, "", 0),
 	}
 }
@@ -40,6 +43,11 @@ func Default() *Logger {
 // Info works just like log.Print however adds the Info prefix.
 func (l *Logger) Info(v ...interface{}) {
 	l.Print(l.InfoPrefix + fmt.Sprint(v...))
+}
+
+// Debug works just like log.Print however adds the Debug prefix.
+func (l *Logger) Debug(v ...interface{}) {
+	l.Print(l.DebugPrefix + fmt.Sprint(v...))
 }
 
 // Warn works just like log.Print however adds the Warn prefix.
@@ -62,6 +70,11 @@ func (l *Logger) Infof(format string, v ...interface{}) {
 	l.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
 }
 
+// Debugf works just like log.Printf however adds the Debug prefix.
+func (l *Logger) Debugf(format string, v ...interface{}) {
+	l.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
+}
+
 // Warnf works just like log.Printf however adds the Warn prefix.
 func (l *Logger) Warnf(format string, v ...interface{}) {
 	l.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
@@ -80,6 +93,11 @@ func (l *Logger) Panicf(format string, v ...interface{}) {
 // Infoln works just like log.Println however adds the Info prefix
 func (l *Logger) Infoln(v ...interface{}) {
 	l.Println(l.InfoPrefix + fmt.Sprint(v...))
+}
+
+// Debugln works just like log.Println however adds the Debug prefix.
+func (l *Logger) Debugln(v ...interface{}) {
+	l.Println(l.DebugPrefix + fmt.Sprint(v...))
 }
 
 // Warnln works just like log.Println however adds the Warnln prefix
