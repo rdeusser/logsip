@@ -88,3 +88,33 @@ func TestWarnln(t *testing.T) {
 		t.Errorf("There's an error here. %s should look like %s", expect, b.String())
 	}
 }
+func TestDebug(t *testing.T) {
+	var b bytes.Buffer
+	var log = logsip.Default()
+	log.Logger.SetOutput(&b)
+	const testString = "foo"
+	log.Debug("foo")
+	if expect := log.DebugPrefix + testString + "\n"; b.String() != expect {
+		t.Errorf("There's an error here. %s should look like %s", expect, b.String())
+	}
+}
+func TestDebugf(t *testing.T) {
+	var b bytes.Buffer
+	var log = logsip.New(&b)
+	const testString = "foo"
+	log.Debugf("%s", "foo")
+	if expect := log.DebugPrefix + testString + "\n"; b.String() != expect {
+		t.Errorf("There's an error here. %s should look like %s", expect, b.String())
+	}
+}
+func TestDebugln(t *testing.T) {
+	var b bytes.Buffer
+	var log = logsip.New(&b)
+	var log = logsip.Default()
+	log.Logger.SetOutput(&b)
+	const testString = "foo"
+	log.Debugln("foo")
+	if expect := log.DebugPrefix + testString + "\n"; b.String() != expect {
+		t.Errorf("There's an error here. %s should look like %s", expect, b.String())
+	}
+}
