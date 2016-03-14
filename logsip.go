@@ -36,6 +36,7 @@ func Default() *Logger {
 		FatalPrefix: color.New(color.FgRed).SprintFunc()("==> Fatal: "),
 		PanicPrefix: color.New(color.FgRed).SprintFunc()("==> Panic: "),
 		DebugPrefix: color.New(color.FgMagenta).SprintFunc()("==> Debug: "),
+		DebugMode:   false,
 		Logger:      log.New(os.Stdout, "", 0),
 	}
 }
@@ -47,7 +48,9 @@ func (l *Logger) Info(v ...interface{}) {
 
 // Debug works just like log.Print however adds the Debug prefix.
 func (l *Logger) Debug(v ...interface{}) {
-	l.Print(l.DebugPrefix + fmt.Sprint(v...))
+	if l.DebugMode {
+		l.Print(l.DebugPrefix + fmt.Sprint(v...))
+	}
 }
 
 // Warn works just like log.Print however adds the Warn prefix.
@@ -72,7 +75,9 @@ func (l *Logger) Infof(format string, v ...interface{}) {
 
 // Debugf works just like log.Printf however adds the Debug prefix.
 func (l *Logger) Debugf(format string, v ...interface{}) {
-	l.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
+	if l.DebugMode {
+		l.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
+	}
 }
 
 // Warnf works just like log.Printf however adds the Warn prefix.
@@ -97,7 +102,9 @@ func (l *Logger) Infoln(v ...interface{}) {
 
 // Debugln works just like log.Println however adds the Debug prefix.
 func (l *Logger) Debugln(v ...interface{}) {
-	l.Println(l.DebugPrefix + fmt.Sprint(v...))
+	if l.DebugMode {
+		l.Println(l.DebugPrefix + fmt.Sprint(v...))
+	}
 }
 
 // Warnln works just like log.Println however adds the Warnln prefix
