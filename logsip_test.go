@@ -122,6 +122,7 @@ func TestDebugMode(t *testing.T) {
 	var b bytes.Buffer
 	var log = logsip.Default()
 	log.DebugMode = false
+	log.Logger.SetOutput(&b)
 	log.Debug("foo")
 	log.Debugln("foo")
 	log.Debugf("%s", "foo")
