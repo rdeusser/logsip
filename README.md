@@ -1,4 +1,4 @@
-# Logsip [![Build Status](https://travis-ci.org/iamthemuffinman/logsip.svg?branch=master)](https://travis-ci.org/iamthemuffinman/logsip)
+# Logsip [![Build Status](https://travis-ci.org/iamthemuffinman/logsip.svg?branch=master)](https://travis-ci.org/iamthemuffinman/logsip) [![Go Report Card](https://goreportcard.com/badge/github.com/iamthemuffinman/logsip)](https://goreportcard.com/report/github.com/iamthemuffinman/logsip)
 A simple, concise, colorful logger for Go.
 
 ### How to use
