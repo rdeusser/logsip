@@ -1,4 +1,8 @@
-# Logsip [![Build Status](https://travis-ci.org/iamthemuffinman/logsip.svg?branch=master)](https://travis-ci.org/iamthemuffinman/logsip) [![Go Report Card](https://goreportcard.com/badge/github.com/iamthemuffinman/logsip)](https://goreportcard.com/report/github.com/iamthemuffinman/logsip)
+# Logsip
+===
+[![GoDoc](https://godoc.org/github.com/iamthemuffinman/logsip?status.svg)](https://godoc.org/github.com/iamthemuffinman/logsip)
+[![Build Status](https://travis-ci.org/iamthemuffinman/logsip.svg?branch=master)](https://travis-ci.org/iamthemuffinman/logsip) [![Go Report Card](https://goreportcard.com/badge/github.com/iamthemuffinman/logsip)](https://goreportcard.com/report/github.com/iamthemuffinman/logsip)
+
 A simple, concise, colorful logger for Go.
 
 ### How to use
@@ -24,14 +28,14 @@ func main() {
     log.Warn("Some info you might need to know")
     log.Fatal("You done did something wrong")
     log.Panic("You REALLY done did something wrong")
-    
+
     lulz := "lulz"
 
     log.Infof("Just some %s for ya", lulz)
     log.Warnf("You might need to know this %s", lulz)
     log.Fatalf("You done did the %s", lulz)
     log.Panicf("You REALLY done did the %s", lulz)
-    
+
     log.Infoln("Just some info for ya")
     log.Warnln("Some info you might need to know")
     log.Fatalln("You done did something wrong")
