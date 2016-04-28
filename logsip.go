@@ -43,81 +43,81 @@ func Default() *Logger {
 
 // Info works just like log.Print, but with a Cyan "==> Info:" prefix.
 func (l *Logger) Info(v ...interface{}) {
-	l.Print(l.InfoPrefix + fmt.Sprint(v...))
+	l.Logger.Print(l.InfoPrefix + fmt.Sprint(v...))
 }
 
 // Debug works just like log.Print, but with a Magenta "==> Debug:" prefix.
 func (l *Logger) Debug(v ...interface{}) {
 	if l.DebugMode {
-		l.Print(l.DebugPrefix + fmt.Sprint(v...))
+		l.Logger.Print(l.DebugPrefix + fmt.Sprint(v...))
 	}
 }
 
 // Warn works just like log.Print, but with a Yellow "==> Warn:" prefix.
 func (l *Logger) Warn(v ...interface{}) {
-	l.Print(l.WarnPrefix + fmt.Sprint(v...))
+	l.Logger.Print(l.WarnPrefix + fmt.Sprint(v...))
 }
 
 // Fatal works just like log.Fatal, but with a Red "==> Fatal:" prefix.
 func (l *Logger) Fatal(v ...interface{}) {
-	l.Fatal(l.FatalPrefix + fmt.Sprint(v...))
+	l.Logger.Fatal(l.FatalPrefix + fmt.Sprint(v...))
 }
 
 // Panic works just like log.Panic, but with a Red "==> Panic:" prefix.
 func (l *Logger) Panic(v ...interface{}) {
-	l.Panic(l.PanicPrefix + fmt.Sprint(v...))
+	l.Logger.Panic(l.PanicPrefix + fmt.Sprint(v...))
 }
 
 // Infof works just like log.Printf, but with a Cyan "==> Info:" prefix.
 func (l *Logger) Infof(format string, v ...interface{}) {
-	l.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
+	l.Logger.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
 }
 
 // Debugf works just like log.Printf, but with a Magenta "==> Debug:" prefix.
 func (l *Logger) Debugf(format string, v ...interface{}) {
 	if l.DebugMode {
-		l.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
+		l.Logger.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
 	}
 }
 
 // Warnf works just like log.Printf, but with a Yellow "==> Warn:" prefix.
 func (l *Logger) Warnf(format string, v ...interface{}) {
-	l.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
+	l.Logger.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
 }
 
 // Fatalf works just like log.Fatalf, but with a Red "==> Fatal:" prefix.
 func (l *Logger) Fatalf(format string, v ...interface{}) {
-	l.Fatalf(l.FatalPrefix + fmt.Sprintf(format, v...))
+	l.Logger.Fatalf(l.FatalPrefix + fmt.Sprintf(format, v...))
 }
 
 // Panicf works just like log.Panicf, but with a Red "==> Panic:" prefix.
 func (l *Logger) Panicf(format string, v ...interface{}) {
-	l.Panicf(l.PanicPrefix + fmt.Sprintf(format, v...))
+	l.Logger.Panicf(l.PanicPrefix + fmt.Sprintf(format, v...))
 }
 
 // Infoln works just like log.Println, but with a Cyan "==> Info:" prefix.
 func (l *Logger) Infoln(v ...interface{}) {
-	l.Println(l.InfoPrefix + fmt.Sprint(v...))
+	l.Logger.Println(l.InfoPrefix + fmt.Sprint(v...))
 }
 
 // Debugln works just like log.Println, but with a Magenta "==> Debug:" prefix.
 func (l *Logger) Debugln(v ...interface{}) {
 	if l.DebugMode {
-		l.Println(l.DebugPrefix + fmt.Sprint(v...))
+		l.Logger.Println(l.DebugPrefix + fmt.Sprint(v...))
 	}
 }
 
 // Warnln works just like log.Println, but with a Yellow "==> Warn:" prefix.
 func (l *Logger) Warnln(v ...interface{}) {
-	l.Println(l.WarnPrefix + fmt.Sprint(v...))
+	l.Logger.Println(l.WarnPrefix + fmt.Sprint(v...))
 }
 
 // Fatalln works just like log.Fatalln, but with a Red "==> Fatal:" prefix.
 func (l *Logger) Fatalln(v ...interface{}) {
-	l.Fatalln(l.FatalPrefix + fmt.Sprint(v...))
+	l.Logger.Fatalln(l.FatalPrefix + fmt.Sprint(v...))
 }
 
 // Panicln works just like log.Panicln, but with a Red "==> Panic:" prefix.
 func (l *Logger) Panicln(v ...interface{}) {
-	l.Panicln(l.PanicPrefix + fmt.Sprint(v...))
+	l.Logger.Panicln(l.PanicPrefix + fmt.Sprint(v...))
 }
