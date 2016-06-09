@@ -68,10 +68,6 @@ func main() {
 }
 ```
 
-New() will write to anything that satisfies the io.Writer method so get creative!
-
-Logsip also provides a Default option if you just want to use os.Stdout:
-
 Contributions welcome!
 
 ### Credits
