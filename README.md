@@ -68,6 +68,24 @@ func main() {
 }
 ```
 
+There's also a Debug mode.
+
+```go
+package main
+
+import (
+    "github.com/iamthemuffinman/logsip"
+)
+
+var log = logsip.Default()
+
+func main() {
+    log.DebugMode = true
+
+    log.Debug("You see this dog?")
+}
+```
+
 Contributions welcome!
 
 ### Credits
