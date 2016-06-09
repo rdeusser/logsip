@@ -25,8 +25,8 @@ func main() {
 }
 ```
 
-```go logsip.Default() ``` defaults to ```go os.Stdout ``` but you can write
-out to anything that satisfies the ```go io.Writer ``` interface.
+```logsip.Default()``` defaults to ```os.Stdout``` but you can write
+out to anything that satisfies the ```io.Writer``` interface.
 
 ```go
 package main
