@@ -35,7 +35,7 @@ func NewPackageLogger(pkg string) *Logger {
 		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
 		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
 		DebugMode:   false,
-		Logger:      log.New(os.Stdout, "["+pkg+"]", 0),
+		Logger:      log.New(os.Stdout, "["+pkg+"] ", 0),
 	}
 }
 
