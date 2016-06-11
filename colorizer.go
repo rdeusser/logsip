@@ -5,7 +5,7 @@ package logsip
 
 import (
 	"bytes"
-	"html/template"
+	"text/template"
 )
 
 var Colors = map[string]string{
