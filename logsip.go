@@ -8,18 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
-	"time"
 )
-
-var baseTimestamp time.Time
-
-func init() {
-	baseTimestamp = time.Now()
-}
-
-func returnElapsed() string {
-	return string(time.Since(baseTimestamp) / time.Second)
-}
 
 // Logger is a modified log.Logger which provides logging levels.
 type Logger struct {
@@ -41,7 +30,7 @@ func New(out io.Writer, pkg string) *Logger {
 		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
 		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
 		DebugMode:   false,
-		Logger:      log.New(out, returnElapsed()+" ["+pkg+"] : ", 0),
+		Logger:      log.New(out, "["+pkg+"] : ", 0),
 	}
 }
 
