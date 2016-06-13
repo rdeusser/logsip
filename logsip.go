@@ -21,9 +21,16 @@ type Logger struct {
 	*log.Logger
 }
 
-// New returns a blank Logger so you can define your own prefixes.
+// New returns the Default logger, but you can specify anything that satisifes the io.Writer interface
 func New(out io.Writer) *Logger {
-	return &Logger{Logger: log.New(out, "", 0)}
+		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
+		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
+		FatalPrefix: Colorize("{{.Red}}==> FATAL:{{.Default}} "),
+		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
+		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
+		DebugMode:   false,
+		Logger:      log.New(out, "", 0),
+	}
 }
 
 // NewPackageLogger is useful for when you want to know which logs are coming from which package.
