@@ -34,7 +34,7 @@ func New(out io.Writer) *Logger {
 }
 
 // NewPackageLogger is useful for when you want to know which logs are coming from which package.
-func NewPackageLogger(pkg string) *Logger {
+func NewPackageLogger(out io.Writer, pkg string)  *Logger {
 	return &Logger{
 		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
 		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
@@ -42,7 +42,7 @@ func NewPackageLogger(pkg string) *Logger {
 		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
 		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
 		DebugMode:   false,
-		Logger:      log.New(os.Stdout, "["+pkg+"] : ", 0),
+		Logger:      log.New(out, "["+pkg+"] : ", 0),
 	}
 }
 
