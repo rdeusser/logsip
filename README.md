@@ -48,7 +48,7 @@ func main() {
 }
 ```
 
-This package behaves almost identi:cally to the standard log package:
+This package behaves almost identically to the standard log package:
 
 ```go
 package main
