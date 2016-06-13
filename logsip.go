@@ -8,7 +8,18 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 )
+
+var baseTimestamp time.Time
+
+func init() {
+	baseTimestamp = time.Now()
+}
+
+func returnElapsed() string {
+	return string(time.Since(baseTimestamp) / time.Second)
+}
 
 // Logger is a modified log.Logger which provides logging levels.
 type Logger struct {
@@ -21,8 +32,9 @@ type Logger struct {
 	*log.Logger
 }
 
-// New returns the Default logger, but you can specify anything that satisifes the io.Writer interface
+// New returns the Default logger, but you can specify anything that satisifes the io.Writer interface.
 func New(out io.Writer) *Logger {
+	return &Logger{
 		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
 		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
 		FatalPrefix: Colorize("{{.Red}}==> FATAL:{{.Default}} "),
@@ -33,8 +45,8 @@ func New(out io.Writer) *Logger {
 	}
 }
 
-// NewPackageLogger is useful for when you want to know which logs are coming from which package.
-func NewPackageLogger(out io.Writer, pkg string)  *Logger {
+// NewPackageLogger is useful for when you want to know which logs are coming from which package and now much time has elapsed.
+func NewPackageLogger(out io.Writer, pkg string) *Logger {
 	return &Logger{
 		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
 		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
@@ -42,7 +54,7 @@ func NewPackageLogger(out io.Writer, pkg string)  *Logger {
 		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
 		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
 		DebugMode:   false,
-		Logger:      log.New(out, "["+pkg+"] : ", 0),
+		Logger:      log.New(out, returnElapsed+" ["+pkg+"] : ", 0),
 	}
 }
 
