@@ -26,7 +26,8 @@ func main() {
 ```
 
 ```logsip.Default()``` defaults to ```os.Stdout``` but you can write
-out to anything that satisfies the ```io.Writer``` interface.
+out to anything that satisfies the ```io.Writer``` interface if you use
+```logsip.New()```
 
 ```go
 package main
@@ -37,7 +38,10 @@ import (
     "github.com/iamthemuffinman/logsip"
 )
 
-var log = logsip.New(os.Stdout)
+// That string at the end is for package identification. It helps with
+// debugging. Plus it's nice to see what logs are coming from where without having
+// to look at the code.
+var log = logsip.New(os.Stdout, "main")
 
 func main() {
     log.Info("Just some info for ya")
