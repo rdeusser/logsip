@@ -33,20 +33,7 @@ type Logger struct {
 }
 
 // New returns the Default logger, but you can specify anything that satisifes the io.Writer interface.
-func New(out io.Writer) *Logger {
-	return &Logger{
-		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
-		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
-		FatalPrefix: Colorize("{{.Red}}==> FATAL:{{.Default}} "),
-		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
-		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
-		DebugMode:   false,
-		Logger:      log.New(out, "", 0),
-	}
-}
-
-// NewPackageLogger is useful for when you want to know which logs are coming from which package and now much time has elapsed.
-func NewPackageLogger(out io.Writer, pkg string) *Logger {
+func New(out io.Writer, pkg string) *Logger {
 	return &Logger{
 		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
 		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
