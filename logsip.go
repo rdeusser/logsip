@@ -21,6 +21,26 @@ type Logger struct {
 	*log.Logger
 }
 
+type Log interface {
+	Info(v ...interface{})
+	Debug(v ...interface{})
+	Warn(v ...interface{})
+	Fatal(v ...interface{})
+	Panic(v ...interface{})
+
+	Infof(format string, v ...interface{})
+	Debugf(format string, v ...interface{})
+	Warnf(format string, v ...interface{})
+	Fatalf(format string, v ...interface{})
+	Panicf(format string, v ...interface{})
+
+	Infoln(format string, v ...interface{})
+	Debugln(format string, v ...interface{})
+	Warnln(format string, v... interface{})
+	Fatalln(format string, v ...interface{})
+	Panicln(format string v ...interface{})
+}
+
 // New returns the Default logger, but you can specify anything that satisifes the io.Writer interface.
 func New(out io.Writer, pkg string) *Logger {
 	return &Logger{
