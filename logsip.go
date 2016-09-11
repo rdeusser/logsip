@@ -34,11 +34,11 @@ type Log interface {
 	Fatalf(format string, v ...interface{})
 	Panicf(format string, v ...interface{})
 
-	Infoln(format string, v ...interface{})
-	Debugln(format string, v ...interface{})
-	Warnln(format string, v ...interface{})
-	Fatalln(format string, v ...interface{})
-	Panicln(format string, v ...interface{})
+	Infoln(v ...interface{})
+	Debugln(v ...interface{})
+	Warnln(v ...interface{})
+	Fatalln(v ...interface{})
+	Panicln(v ...interface{})
 }
 
 // New returns the Default logger, but you can specify anything that satisifes the io.Writer interface.
