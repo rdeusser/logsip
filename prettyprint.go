@@ -8,7 +8,7 @@ import (
 	"text/template"
 )
 
-var Colors = map[string]string{
+var colors = map[string]string{
 	"Default": "\033[0m",
 	"Black":   "\033[0;30m",
 	"Red":     "\033[0;31m",
@@ -20,20 +20,16 @@ var Colors = map[string]string{
 	"White":   "\033[0;37m",
 }
 
-func colorize(msg string, vars interface{}) string {
-	tpl, err := template.New(msg).Parse(msg)
+func prettyPrint(s string) string {
+	tpl, err := template.New(s).Parse(s)
 	// Don't hold up the party for a bad template
 	if err != nil {
-		return msg
+		return s
 	}
 	var buf bytes.Buffer
-	if err := tpl.Execute(&buf, vars); err != nil {
-		return msg
+	if err := tpl.Execute(&buf, colors); err != nil {
+		return s
 	}
 
 	return buf.String()
-}
-
-func Colorize(msg string) string {
-	return colorize(msg, Colors)
 }
