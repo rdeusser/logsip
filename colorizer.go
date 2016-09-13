@@ -57,6 +57,7 @@ func colorize(msg string, vars interface{}) string {
 
 	return buf.String()
 }
+
 func Colorize(msg string) string {
 	return colorize(msg, Colors)
 }
