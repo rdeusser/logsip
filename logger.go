@@ -21,6 +21,8 @@ func New() *Logger {
 	}
 }
 
+var std = New()
+
 // Panic works just like log.Panic, but with a Red "==> PANIC:" prefix.
 func (l *Logger) Panic(v ...interface{}) {
 	if l.Level >= PanicLevel {
@@ -141,5 +143,128 @@ func (l *Logger) Infoln(v ...interface{}) {
 func (l *Logger) Debugln(v ...interface{}) {
 	if l.Level >= DebugLevel {
 		l.Logger.Println(DebugLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Panic works just like log.Panic, but with a Red "==> PANIC:" prefix.
+func Panic(v ...interface{}) {
+	if std.Level >= PanicLevel {
+		std.Logger.Panic(PanicLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Fatal works just like log.Fatal, but with a Red "==> FATAL:" prefix.
+func Fatal(v ...interface{}) {
+	if std.Level >= FatalLevel {
+		std.Logger.Fatal(FatalLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+func Error(v ...interface{}) {
+	if std.Level >= ErrorLevel {
+		std.Logger.Print(ErrorLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Warn works just like log.Print, but with a Yellow "==> WARN:" prefix.
+func Warn(v ...interface{}) {
+	if std.Level >= WarnLevel {
+		std.Logger.Print(WarnLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Info works just like log.Print, but with a Green "==> INFO:" prefix.
+func Info(v ...interface{}) {
+	if std.Level >= InfoLevel {
+		std.Logger.Print(InfoLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Debug works just like log.Print, but with a Cyan "==> DEBUG:" prefix.
+func Debug(v ...interface{}) {
+	if std.Level >= DebugLevel {
+		std.Logger.Print(DebugLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Panicf works just like log.Panicf, but with a Red "==> PANIC:" prefix.
+func Panicf(format string, v ...interface{}) {
+	if std.Level >= PanicLevel {
+		std.Logger.Panic(PanicLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+// Fatalf works just like log.Fatalf, but with a Red "==> FATAL:" prefix.
+func Fatalf(format string, v ...interface{}) {
+	if std.Level >= FatalLevel {
+		std.Logger.Fatal(FatalLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+func Errorf(format string, v ...interface{}) {
+	if std.Level >= ErrorLevel {
+		std.Logger.Print(ErrorLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+// Warnf works just like log.Printf, but with a Yellow "==> WARN:" prefix.
+func Warnf(format string, v ...interface{}) {
+	if std.Level >= WarnLevel {
+		std.Logger.Print(WarnLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+// Infof works just like log.Printf, but with a Green "==> INFO:" prefix.
+func Infof(format string, v ...interface{}) {
+	if std.Level >= InfoLevel {
+		std.Logger.Print(InfoLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+// Debugf works just like log.Printf, but with a Cyan "==> DEBUG:" prefix.
+func Debugf(format string, v ...interface{}) {
+	if std.Level >= DebugLevel {
+		std.Logger.Print(DebugLevel.String() + fmt.Sprintf(format, v...))
+	}
+}
+
+// Panicln works just like log.Panicln, but with a Red "==> PANIC:" prefix.
+func Panicln(v ...interface{}) {
+	if std.Level >= PanicLevel {
+		std.Logger.Panicln(PanicLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Fatalln works just like log.Fatalln, but with a Red "==> FATAL:" prefix.
+func Fatalln(v ...interface{}) {
+	if std.Level >= FatalLevel {
+		std.Logger.Fatalln(FatalLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+func Errorln(v ...interface{}) {
+	if std.Level >= ErrorLevel {
+		std.Logger.Println(ErrorLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Warnln works just like log.Println, but with a Yellow "==> WARN:" prefix.
+func Warnln(v ...interface{}) {
+	if std.Level >= WarnLevel {
+		std.Logger.Println(WarnLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Infoln works just like log.Println, but with a Green "==> INFO:" prefix.
+func Infoln(v ...interface{}) {
+	if std.Level >= InfoLevel {
+		std.Logger.Println(InfoLevel.String() + fmt.Sprint(v...))
+	}
+}
+
+// Debugln works just like log.Println, but with a Cyan "==> DEBUG:" prefix.
+func Debugln(v ...interface{}) {
+	if std.Level >= DebugLevel {
+		std.Logger.Println(DebugLevel.String() + fmt.Sprint(v...))
 	}
 }
