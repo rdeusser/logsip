@@ -112,6 +112,23 @@ func (logger *Logger) GetLevel() Level {
 	return logger.Level
 }
 
+func SetLevel(level Level) {
+	l, err := parseLevel(level)
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+
+	std.mu.Lock()
+	defer std.mu.Unlock()
+	std.Level = l
+}
+
+func GetLevel() Level {
+	std.mu.Lock()
+	defer std.mu.Unlock()
+	return std.Level
+}
+
 type Logging interface {
 	Panic(v ...interface{})
 	Fatal(v ...interface{})
