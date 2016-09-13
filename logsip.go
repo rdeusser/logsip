@@ -6,7 +6,10 @@ package logsip
 import (
 	"errors"
 	"fmt"
+	"os"
 	"time"
+
+	"github.com/iamthemuffinman/logsip/isatty"
 )
 
 type Level uint8
@@ -24,20 +27,44 @@ func sinceStartTime() int {
 func (level Level) String() string {
 	switch level {
 	case PanicLevel:
-		return fmt.Sprintf(Colorize("{{.Red}}PANIC[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Red}}PANIC[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("PANIC[%04d] ==> ", sinceStartTime())
+		}
 	case FatalLevel:
-		return fmt.Sprintf(Colorize("{{.Red}}FATAL[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Red}}FATAL[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("FATAL[%04d] ==> ", sinceStartTime())
+		}
 	case ErrorLevel:
-		return fmt.Sprintf(Colorize("{{.Red}}ERROR[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Red}}ERROR[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("ERROR[%04d] ==> ", sinceStartTime())
+		}
 	case WarnLevel:
-		return fmt.Sprintf(Colorize("{{.Yellow}}WARN[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Yellow}}WARN[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("WARN[%04d] ==> ", sinceStartTime())
+		}
 	case InfoLevel:
-		return fmt.Sprintf(Colorize("{{.Blue}}INFO[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Blue}}INFO[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("INFO[%04d] ==> ", sinceStartTime())
+		}
 	case DebugLevel:
-		return fmt.Sprintf(Colorize("{{.Purple}}DEBUG[%04d] ==> {{.Default}}"), sinceStartTime())
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(Colorize("{{.Purple}}DEBUG[%04d] ==> {{.Default}}"), sinceStartTime())
+		} else {
+			return fmt.Sprintf("DEBUG[%04d] ==> ", sinceStartTime())
+		}
 	}
 
-	return "[UNKNOWN] ==> "
+	return fmt.Sprintf("UNKNOWN ==> ")
 }
 
 const (
