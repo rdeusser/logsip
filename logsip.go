@@ -28,43 +28,43 @@ func (level Level) String() string {
 	switch level {
 	case PanicLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Red}}PANIC[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Red}}PANIC[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("PANIC[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("PANIC[%04d] ", sinceStartTime())
 		}
 	case FatalLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Red}}FATAL[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Red}}FATAL[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("FATAL[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("FATAL[%04d] ", sinceStartTime())
 		}
 	case ErrorLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Red}}ERROR[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Red}}ERROR[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("ERROR[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("ERROR[%04d] ", sinceStartTime())
 		}
 	case WarnLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Yellow}}WARN[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Yellow}}WARN[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("WARN[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("WARN[%04d] ", sinceStartTime())
 		}
 	case InfoLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Blue}}INFO[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Blue}}INFO[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("INFO[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("INFO[%04d] ", sinceStartTime())
 		}
 	case DebugLevel:
 		if isatty.IsTerminal(os.Stdout.Fd()) {
-			return fmt.Sprintf(prettyPrint("{{.Purple}}DEBUG[%04d] ==> {{.Default}}"), sinceStartTime())
+			return fmt.Sprintf(prettyPrint("{{.Purple}}DEBUG[%04d]{{.Default}} "), sinceStartTime())
 		} else {
-			return fmt.Sprintf("DEBUG[%04d] ==> ", sinceStartTime())
+			return fmt.Sprintf("DEBUG[%04d] ", sinceStartTime())
 		}
 	}
 
-	return fmt.Sprintf("UNKNOWN ==> ")
+	return fmt.Sprintf("UNKNOWN ")
 }
 
 const (
