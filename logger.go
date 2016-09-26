@@ -151,90 +151,127 @@ func (l *Logger) Debugln(v ...interface{}) {
 
 // Panic works just like log.Panic, but with a Red "PANIC[0000] ==>" prefix.
 func Panic(v ...interface{}) {
-	std.Logger.Panic(PanicLevel.String() + fmt.Sprint(v...))
+	if std.Level >= PanicLevel {
+		std.Logger.Panic(PanicLevel.String() + fmt.Sprint(v...))
+
+	}
 }
 
 // Fatal works just like log.Fatal, but with a Red "FATAL[0000] ==>" prefix.
 func Fatal(v ...interface{}) {
-	std.Logger.Fatal(FatalLevel.String() + fmt.Sprint(v...))
+	if std.Level >= FatalLevel {
+		std.Logger.Fatal(FatalLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Error works just like log.Print, but with a Red "ERROR[0000] ==>" prefix.
 func Error(v ...interface{}) {
-	std.Logger.Print(ErrorLevel.String() + fmt.Sprint(v...))
+	if std.Level >= ErrorLevel {
+		std.Logger.Print(ErrorLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Warn works just like log.Print, but with a Yellow "WARN[0000] ==>" prefix.
 func Warn(v ...interface{}) {
-	std.Logger.Print(WarnLevel.String() + fmt.Sprint(v...))
+	if std.Level >= WarnLevel {
+		std.Logger.Print(WarnLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Info works just like log.Print, but with a Blue "INFO[0000] ==>" prefix.
 func Info(v ...interface{}) {
-	std.Logger.Print(InfoLevel.String() + fmt.Sprint(v...))
+	if std.Level >= InfoLevel {
+		std.Logger.Print(InfoLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Debug works just like log.Print, but with a Purple "DEBUG[0000] ==>" prefix.
 func Debug(v ...interface{}) {
-	std.Logger.Print(DebugLevel.String() + fmt.Sprint(v...))
+	if std.Level >= DebugLevel {
+		std.Logger.Print(DebugLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Panicf works just like log.Panicf, but with a Red "PANIC[0000] ==>" prefix.
 func Panicf(format string, v ...interface{}) {
-	std.Logger.Panic(PanicLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= PanicLevel {
+		std.Logger.Panic(PanicLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Fatalf works just like log.Fatalf, but with a Red "FATAL[0000] ==>" prefix.
 func Fatalf(format string, v ...interface{}) {
-	std.Logger.Fatal(FatalLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= FatalLevel {
+		std.Logger.Fatal(FatalLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Errorf works just like log.Printf, but with a Red "ERROR[0000] ==>" prefix.
 func Errorf(format string, v ...interface{}) {
-	std.Logger.Print(ErrorLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= ErrorLevel {
+		std.Logger.Print(ErrorLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Warnf works just like log.Printf, but with a Yellow "WARN[0000] ==>" prefix.
 func Warnf(format string, v ...interface{}) {
-	std.Logger.Print(WarnLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= WarnLevel {
+		std.Logger.Print(WarnLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Infof works just like log.Printf, but with a Blue "INFO[0000] ==>" prefix.
 func Infof(format string, v ...interface{}) {
-	std.Logger.Print(InfoLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= InfoLevel {
+		std.Logger.Print(InfoLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Debugf works just like log.Printf, but with a Purple "DEBUG[0000] ==>" prefix.
 func Debugf(format string, v ...interface{}) {
-	std.Logger.Print(DebugLevel.String() + fmt.Sprintf(format, v...))
+	if std.Level >= DebugLevel {
+		std.Logger.Print(DebugLevel.String() + fmt.Sprintf(format, v...))
+	}
 }
 
 // Panicln works just like log.Panicln, but with a Red "PANIC[0000] ==>" prefix.
 func Panicln(v ...interface{}) {
-	std.Logger.Panicln(PanicLevel.String() + fmt.Sprint(v...))
+	if std.Level >= PanicLevel {
+		std.Logger.Panicln(PanicLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Fatalln works just like log.Fatalln, but with a Red "FATAL[0000] ==>" prefix.
 func Fatalln(v ...interface{}) {
-	std.Logger.Fatalln(FatalLevel.String() + fmt.Sprint(v...))
+	if std.Level >= FatalLevel {
+		std.Logger.Fatalln(FatalLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Errorln works just like log.Println, but with a Red "ERROR[0000] ==>" prefix.
 func Errorln(v ...interface{}) {
-	std.Logger.Println(ErrorLevel.String() + fmt.Sprint(v...))
+	if std.Level >= ErrorLevel {
+		std.Logger.Println(ErrorLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Warnln works just like log.Println, but with a Yellow "WARN[0000] ==>" prefix.
 func Warnln(v ...interface{}) {
-	std.Logger.Println(WarnLevel.String() + fmt.Sprint(v...))
+	if std.Level >= WarnLevel {
+		std.Logger.Println(WarnLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Infoln works just like log.Println, but with a Blue "INFO[0000] ==>" prefix.
 func Infoln(v ...interface{}) {
-	std.Logger.Println(InfoLevel.String() + fmt.Sprint(v...))
+	if std.Level >= InfoLevel {
+		std.Logger.Println(InfoLevel.String() + fmt.Sprint(v...))
+	}
 }
 
 // Debugln works just like log.Println, but with a Purple "DEBUG[0000] ==>" prefix.
 func Debugln(v ...interface{}) {
-	std.Logger.Println(DebugLevel.String() + fmt.Sprint(v...))
+	if std.Level >= DebugLevel {
+		std.Logger.Println(DebugLevel.String() + fmt.Sprint(v...))
+	}
 }
