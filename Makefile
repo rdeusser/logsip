@@ -1,15 +1,13 @@
-TEST?=$(shell go list ./... | grep -v vendor)
+.PHONY: all fmt deps test
 
-all: fmt test
+all: fmt deps test
 
 fmt:
-	go fmt `go list ./... | grep -v vendor`
+	go fmt `go list ./...`
+
+deps:
+	go get -t -v ./...
 
 test:
-	@go test
-	@go vet $(TEST); if [ $$? -eq 1 ]; then \
-		echo "ERROR: Vet found problems in the code."; \
-		exit 1; \
-	fi
-
-.PHONY: all fmt test
+	go tool vet .
+	go test -v -race ./...

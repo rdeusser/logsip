@@ -4,146 +4,150 @@
 package logsip
 
 import (
+	"errors"
 	"fmt"
-	"io"
-	"log"
 	"os"
+	"time"
+
+	"github.com/iamthemuffinman/logsip/isatty"
 )
 
-// Logger is a modified log.Logger which provides logging levels.
-type Logger struct {
-	WarnPrefix  string
-	FatalPrefix string
-	InfoPrefix  string
-	PanicPrefix string
-	DebugPrefix string
-	DebugMode   bool
-	*log.Logger
+type Level uint8
+
+var startTime time.Time
+
+func init() {
+	startTime = time.Now()
 }
 
-type Log interface {
+func sinceStartTime() int {
+	return int(time.Since(startTime) / time.Second)
+}
+
+func (level Level) String() string {
+	switch level {
+	case PanicLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Red}}PANIC[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("PANIC[%04d] ", sinceStartTime())
+		}
+	case FatalLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Red}}FATAL[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("FATAL[%04d] ", sinceStartTime())
+		}
+	case ErrorLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Red}}ERROR[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("ERROR[%04d] ", sinceStartTime())
+		}
+	case WarnLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Yellow}}WARN[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("WARN[%04d] ", sinceStartTime())
+		}
+	case InfoLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Blue}}INFO[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("INFO[%04d] ", sinceStartTime())
+		}
+	case DebugLevel:
+		if isatty.IsTerminal(os.Stdout.Fd()) {
+			return fmt.Sprintf(prettyPrint("{{.Purple}}DEBUG[%04d]{{.Default}} "), sinceStartTime())
+		} else {
+			return fmt.Sprintf("DEBUG[%04d] ", sinceStartTime())
+		}
+	}
+
+	return fmt.Sprintf("UNKNOWN ")
+}
+
+const (
+	PanicLevel Level = iota
+	FatalLevel
+	ErrorLevel
+	WarnLevel
+	InfoLevel
+	DebugLevel
+)
+
+func parseLevel(level Level) (Level, error) {
+	switch level {
+	case PanicLevel:
+		return PanicLevel, nil
+	case FatalLevel:
+		return FatalLevel, nil
+	case ErrorLevel:
+		return ErrorLevel, nil
+	case WarnLevel:
+		return WarnLevel, nil
+	case InfoLevel:
+		return InfoLevel, nil
+	case DebugLevel:
+		return DebugLevel, nil
+	}
+
+	return PanicLevel, errors.New("unable to parse log level")
+}
+
+func (logger *Logger) SetLevel(level Level) {
+	l, err := parseLevel(level)
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+
+	logger.mu.Lock()
+	defer logger.mu.Unlock()
+	logger.Level = l
+}
+
+func (logger *Logger) GetLevel() Level {
+	logger.mu.Lock()
+	defer logger.mu.Unlock()
+	return logger.Level
+}
+
+func SetLevel(level Level) {
+	l, err := parseLevel(level)
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+
+	std.mu.Lock()
+	defer std.mu.Unlock()
+	std.Level = l
+}
+
+func GetLevel() Level {
+	std.mu.Lock()
+	defer std.mu.Unlock()
+	return std.Level
+}
+
+type Logging interface {
+	Panic(v ...interface{})
+	Fatal(v ...interface{})
+	Error(v ...interface{})
+	Warn(v ...interface{})
 	Info(v ...interface{})
 	Debug(v ...interface{})
-	Warn(v ...interface{})
-	Fatal(v ...interface{})
-	Panic(v ...interface{})
 
+	Panicf(format string, v ...interface{})
+	Fatalf(format string, v ...interface{})
+	Errorf(format string, v ...interface{})
+	Warnf(format string, v ...interface{})
 	Infof(format string, v ...interface{})
 	Debugf(format string, v ...interface{})
-	Warnf(format string, v ...interface{})
-	Fatalf(format string, v ...interface{})
-	Panicf(format string, v ...interface{})
 
+	Panicln(v ...interface{})
+	Fatalln(v ...interface{})
+	Errorln(v ...interface{})
+	Warnln(v ...interface{})
 	Infoln(v ...interface{})
 	Debugln(v ...interface{})
-	Warnln(v ...interface{})
-	Fatalln(v ...interface{})
-	Panicln(v ...interface{})
-}
-
-// New returns the Default logger, but you can specify anything that satisifes the io.Writer interface.
-func New(out io.Writer, pkg string) *Logger {
-	return &Logger{
-		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
-		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
-		FatalPrefix: Colorize("{{.Red}}==> FATAL:{{.Default}} "),
-		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
-		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
-		DebugMode:   false,
-		Logger:      log.New(out, "["+pkg+"] : ", 0),
-	}
-}
-
-// Default returns a new Logger with the default color and prefix options.
-func Default() *Logger {
-	return &Logger{
-		WarnPrefix:  Colorize("{{.Yellow}}==> WARN:{{.Default}} "),
-		InfoPrefix:  Colorize("{{.Green}}==> INFO:{{.Default}} "),
-		FatalPrefix: Colorize("{{.Red}}==> FATAL:{{.Default}} "),
-		PanicPrefix: Colorize("{{.Red}}==> PANIC:{{.Default}} "),
-		DebugPrefix: Colorize("{{.Cyan}}==> DEBUG:{{.Default}} "),
-		DebugMode:   false,
-		Logger:      log.New(os.Stdout, "", 0),
-	}
-}
-
-// Info works just like log.Print, but with a Green "==> INFO:" prefix.
-func (l *Logger) Info(v ...interface{}) {
-	l.Logger.Print(l.InfoPrefix + fmt.Sprint(v...))
-}
-
-// Debug works just like log.Print, but with a Cyan "==> DEBUG:" prefix.
-func (l *Logger) Debug(v ...interface{}) {
-	if l.DebugMode {
-		l.Logger.Print(l.DebugPrefix + fmt.Sprint(v...))
-	}
-}
-
-// Warn works just like log.Print, but with a Yellow "==> WARN:" prefix.
-func (l *Logger) Warn(v ...interface{}) {
-	l.Logger.Print(l.WarnPrefix + fmt.Sprint(v...))
-}
-
-// Fatal works just like log.Fatal, but with a Red "==> FATAL:" prefix.
-func (l *Logger) Fatal(v ...interface{}) {
-	l.Logger.Fatal(l.FatalPrefix + fmt.Sprint(v...))
-}
-
-// Panic works just like log.Panic, but with a Red "==> PANIC:" prefix.
-func (l *Logger) Panic(v ...interface{}) {
-	l.Logger.Panic(l.PanicPrefix + fmt.Sprint(v...))
-}
-
-// Infof works just like log.Printf, but with a Green "==> INFO:" prefix.
-func (l *Logger) Infof(format string, v ...interface{}) {
-	l.Logger.Print(l.InfoPrefix + fmt.Sprintf(format, v...))
-}
-
-// Debugf works just like log.Printf, but with a Cyan "==> DEBUG:" prefix.
-func (l *Logger) Debugf(format string, v ...interface{}) {
-	if l.DebugMode {
-		l.Logger.Print(l.DebugPrefix + fmt.Sprintf(format, v...))
-	}
-}
-
-// Warnf works just like log.Printf, but with a Yellow "==> WARN:" prefix.
-func (l *Logger) Warnf(format string, v ...interface{}) {
-	l.Logger.Print(l.WarnPrefix + fmt.Sprintf(format, v...))
-}
-
-// Fatalf works just like log.Fatalf, but with a Red "==> FATAL:" prefix.
-func (l *Logger) Fatalf(format string, v ...interface{}) {
-	l.Logger.Fatalf(l.FatalPrefix + fmt.Sprintf(format, v...))
-}
-
-// Panicf works just like log.Panicf, but with a Red "==> PANIC:" prefix.
-func (l *Logger) Panicf(format string, v ...interface{}) {
-	l.Logger.Panicf(l.PanicPrefix + fmt.Sprintf(format, v...))
-}
-
-// Infoln works just like log.Println, but with a Green "==> INFO:" prefix.
-func (l *Logger) Infoln(v ...interface{}) {
-	l.Logger.Println(l.InfoPrefix + fmt.Sprint(v...))
-}
-
-// Debugln works just like log.Println, but with a Cyan "==> DEBUG:" prefix.
-func (l *Logger) Debugln(v ...interface{}) {
-	if l.DebugMode {
-		l.Logger.Println(l.DebugPrefix + fmt.Sprint(v...))
-	}
-}
-
-// Warnln works just like log.Println, but with a Yellow "==> WARN:" prefix.
-func (l *Logger) Warnln(v ...interface{}) {
-	l.Logger.Println(l.WarnPrefix + fmt.Sprint(v...))
-}
-
-// Fatalln works just like log.Fatalln, but with a Red "==> FATAL:" prefix.
-func (l *Logger) Fatalln(v ...interface{}) {
-	l.Logger.Fatalln(l.FatalPrefix + fmt.Sprint(v...))
-}
-
-// Panicln works just like log.Panicln, but with a Red "==> PANIC:" prefix.
-func (l *Logger) Panicln(v ...interface{}) {
-	l.Logger.Panicln(l.PanicPrefix + fmt.Sprint(v...))
 }
