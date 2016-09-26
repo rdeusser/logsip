@@ -1,11 +1,13 @@
-.PHONY: all fmt test build
+.PHONY: all fmt deps test
 
-all: fmt test build
+all: fmt deps test
 
 fmt:
 	go fmt `go list ./...`
 
-test:
+deps:
 	go get -t -v ./...
+
+test:
 	go tool vet .
 	go test -v -race ./...
