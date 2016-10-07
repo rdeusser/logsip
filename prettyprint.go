@@ -1,6 +1,3 @@
-// Inspiration (and some code) taken from https://github.com/deis/pkg/prettyprint
-// The idea is not to rely on anything except the standard library
-
 package logsip
 
 import (
