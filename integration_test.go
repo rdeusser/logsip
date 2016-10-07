@@ -8,7 +8,7 @@ import (
 	log "github.com/iamthemuffinman/logsip"
 )
 
-const testString = "this is a test string"
+const testString = "hi"
 
 func TestNew(t *testing.T) {
 	logger := log.New()
