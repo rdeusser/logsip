@@ -12,9 +12,20 @@ import (
 	"github.com/iamthemuffinman/logsip/isatty"
 )
 
+// Level is a type that represents the log level
 type Level uint8
 
 var startTime time.Time
+
+const (
+	// PanicLevel is the lowest level
+	PanicLevel Level = iota
+	FatalLevel
+	ErrorLevel
+	WarnLevel
+	InfoLevel
+	DebugLevel
+)
 
 func init() {
 	startTime = time.Now()
@@ -61,15 +72,6 @@ func (level Level) String() string {
 	return fmt.Sprintf("UNKNOWN ")
 }
 
-const (
-	PanicLevel Level = iota
-	FatalLevel
-	ErrorLevel
-	WarnLevel
-	InfoLevel
-	DebugLevel
-)
-
 func parseLevel(level Level) (Level, error) {
 	switch level {
 	case PanicLevel:
@@ -89,6 +91,7 @@ func parseLevel(level Level) (Level, error) {
 	return PanicLevel, errors.New("unable to parse log level")
 }
 
+// SetLevel is a method to set the log level (i.e Info, Warn, Debug, etc.)
 func (logger *Logger) SetLevel(level Level) {
 	l, err := parseLevel(level)
 	if err != nil {
@@ -100,12 +103,14 @@ func (logger *Logger) SetLevel(level Level) {
 	logger.Level = l
 }
 
+// GetLevel is a method to get the current log level
 func (logger *Logger) GetLevel() Level {
 	logger.mu.Lock()
 	defer logger.mu.Unlock()
 	return logger.Level
 }
 
+// SetLevel is a function to set the log level (i.e Info, Warn, Debug, etc.)
 func SetLevel(level Level) {
 	l, err := parseLevel(level)
 	if err != nil {
@@ -117,31 +122,9 @@ func SetLevel(level Level) {
 	std.Level = l
 }
 
+// GetLevel is a function to get the current log level
 func GetLevel() Level {
 	std.mu.Lock()
 	defer std.mu.Unlock()
 	return std.Level
-}
-
-type Logging interface {
-	Panic(v ...interface{})
-	Fatal(v ...interface{})
-	Error(v ...interface{})
-	Warn(v ...interface{})
-	Info(v ...interface{})
-	Debug(v ...interface{})
-
-	Panicf(format string, v ...interface{})
-	Fatalf(format string, v ...interface{})
-	Errorf(format string, v ...interface{})
-	Warnf(format string, v ...interface{})
-	Infof(format string, v ...interface{})
-	Debugf(format string, v ...interface{})
-
-	Panicln(v ...interface{})
-	Fatalln(v ...interface{})
-	Errorln(v ...interface{})
-	Warnln(v ...interface{})
-	Infoln(v ...interface{})
-	Debugln(v ...interface{})
 }
