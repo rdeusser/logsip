@@ -8,7 +8,7 @@ import (
 	log "github.com/iamthemuffinman/logsip"
 )
 
-const testString = "hi"
+const testString = "aaa"
 
 func TestNew(t *testing.T) {
 	logger := log.New()
@@ -72,8 +72,13 @@ func TestFatal(t *testing.T) {
 		log.Fatal(testString)
 		return
 	}
+
 	cmd := exec.Command(os.Args[0], "-test.run=TestFatal")
+
 	cmd.Env = append(os.Environ(), "BE_CRASHER=1")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	err := cmd.Run()
 	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
 		return
@@ -83,11 +88,16 @@ func TestFatal(t *testing.T) {
 
 func TestFatalf(t *testing.T) {
 	if os.Getenv("BE_CRASHER") == "1" {
-		log.Fatal(testString)
+		log.Fatalf(testString)
 		return
 	}
+
 	cmd := exec.Command(os.Args[0], "-test.run=TestFatalf")
+
 	cmd.Env = append(os.Environ(), "BE_CRASHER=1")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	err := cmd.Run()
 	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
 		return
@@ -97,11 +107,16 @@ func TestFatalf(t *testing.T) {
 
 func TestFatalln(t *testing.T) {
 	if os.Getenv("BE_CRASHER") == "1" {
-		log.Fatal(testString)
+		log.Fatalln(testString)
 		return
 	}
+
 	cmd := exec.Command(os.Args[0], "-test.run=TestFatalln")
+
 	cmd.Env = append(os.Environ(), "BE_CRASHER=1")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
 	err := cmd.Run()
 	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
 		return
