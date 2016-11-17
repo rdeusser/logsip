@@ -6,6 +6,7 @@ package logsip
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"time"
 
@@ -127,4 +128,9 @@ func GetLevel() Level {
 	std.mu.Lock()
 	defer std.mu.Unlock()
 	return std.Level
+}
+
+// SetOutput allows you to use the global logger with any io.Writer
+func SetOutput(w io.Writer) {
+	std.SetOutput(w)
 }
