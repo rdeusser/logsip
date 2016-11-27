@@ -114,6 +114,12 @@ func (logger *Logger) GetLevel() Level {
 	return logger.Level
 }
 
+func (logger *Logger) SetOutput(w io.Writer) {
+	logger.mu.Lock()
+	defer logger.mu.Unlock()
+	logger.SetOutput(w)
+}
+
 // SetLevel is a function to set the log level (i.e Info, Warn, Debug, etc.)
 func SetLevel(level Level) {
 	l, err := parseLevel(level)
@@ -135,5 +141,7 @@ func GetLevel() Level {
 
 // SetOutput allows you to use the global logger with any io.Writer
 func SetOutput(w io.Writer) {
+	std.mu.Lock()
+	defer std.mu.Unlock()
 	std.SetOutput(w)
 }
