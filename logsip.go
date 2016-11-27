@@ -18,6 +18,9 @@ type Level uint8
 
 var startTime time.Time
 
+// IsTerminal defines whether we have a terminal or not
+var IsTerminal = isatty.IsTerminal(os.Stdout.Fd())
+
 const (
 	// PanicLevel is the lowest level
 	PanicLevel Level = iota
@@ -39,32 +42,32 @@ func sinceStartTime() int {
 func (level Level) String() string {
 	switch level {
 	case PanicLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Red}}PANIC[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("PANIC[%04d] ", sinceStartTime())
 	case FatalLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Red}}FATAL[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("FATAL[%04d] ", sinceStartTime())
 	case ErrorLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Red}}ERROR[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("ERROR[%04d] ", sinceStartTime())
 	case WarnLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Yellow}}WARN[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("WARN[%04d] ", sinceStartTime())
 	case InfoLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Blue}}INFO[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("INFO[%04d] ", sinceStartTime())
 	case DebugLevel:
-		if isatty.IsTerminal(os.Stdout.Fd()) {
+		if IsTerminal {
 			return fmt.Sprintf(prettyPrint("{{.Purple}}DEBUG[%04d]{{.Default}} "), sinceStartTime())
 		}
 		return fmt.Sprintf("DEBUG[%04d] ", sinceStartTime())
