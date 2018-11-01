@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/rdeusser/logsip/isatty"
+	isatty "github.com/mattn/go-isatty"
 )
 
 // Level is a type that represents the log level
