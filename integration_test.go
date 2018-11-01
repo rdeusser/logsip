@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"testing"
 
-	log "github.com/iamthemuffinman/logsip"
+	log "github.com/rdeusser/logsip"
 )
 
 const testString = "aaa"
